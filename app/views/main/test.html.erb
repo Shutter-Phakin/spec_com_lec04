@@ -1,23 +1,17 @@
 <h1>Main/test</h1>
+
 <%= form_with url: "/main/test_re", method: :post, data: {turbo: false} do |form| %>
-    <div>
-        <%= form.label :subject_1, "#1 Subject:" %>
-        <%= form.text_field :subject_1 %>
-        <%= form.label :score_1, "#1 Score:" %>
-        <%= form.number_field :score_1 %><br><br>
-    </div>
-    <div>
-        <%= form.label :subject_2, "#2 Subject:" %>
-        <%= form.text_field :subject_2 %>
-        <%= form.label :score_2, "#2 Score:" %>
-        <%= form.number_field :score_2 %><br><br>
-    </div>
-    <div>
-        <%= form.label :subject_3, "#3 Subject:" %>
-        <%= form.text_field :subject_3 %>
-        <%= form.label :score_3, "#3 Score:" %>
-        <%= form.number_field :score_3 %><br><br>
-    </div>
+    <% @num_sub = @number_subjects %>
+    <% for i in 1..@number_subjects do %>
+        <label for="subject">Subject#<%=i%>: </label>
+        <input type="text" name="subject[name][]" value="" required>
+        <label for="score">Score#: </label>
+        <input type="number" name="subject[score][]" min="0" max="100" value="" required> <br><br>
+        <%# form.label :subject[name][], "##{i} Subject:"%>
+        <%# form.text_field :subject[name][] %>
+        <%# form.label :subject[score][], "##{i} Score:" %>
+        <%# form.number_field :subject[score][] %>
+        <%# <br><br> %>
+    <% end %>
     <%= form.submit "Submit" %>
-    
 <% end %>

@@ -1,36 +1,34 @@
 class MainController < ApplicationController
   def test
+      @number_subjects = params[:number_subjects].to_i
       
   end
-  
+
   def test_re
-    @subject_1 = params[:subject_1]
-    @score_1 = params[:score_1].to_i
+    @num_sub = params[:num_sub]
 
-    @subject_2 = params[:subject_2]
-    @score_2 = params[:score_2].to_i
+    array1 = params[:subject][:name]
+    array2 = params[:subject][:score]
+    array = array1.zip(array2)
 
-    @subject_3 = params[:subject_3]
-    @score_3 = params[:score_3].to_i
+    @max_score = array2.max
+    @sum_score = 0
 
-    @sum_score = params[:sum_score]
+    for e in array do
+      if e[1].to_i >= @max_score.to_i
+        @max_score = e[1]
+        @max_sub = e[0]
+      end
+      @sum_score = @sum_score + e[1].to_i
 
-    @sum_score = @score_1 + @score_2 + @score_3
+      # if e[0] == "" || e[1] == "" 
+      #   redirect_to main_test_url(number_subjects: @num_sub) and return
+      # end
+    end
+          
+  end
+
+  def first_page
     
-    @max_score = params[:max_score]
-    @max_sub = params[:max_sub]
-
-        if @score_1 >= @score_2
-            @max_score = @score_1
-            @max_sub = @subject_1
-        else
-            @max_score = @score_2
-            @max_sub = @subject_2
-        end
-
-        if @score_3 >= @max_score
-            @max_score = @score_3
-            @max_sub = @subject_3
-        end
   end
 end
